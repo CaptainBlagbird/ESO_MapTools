@@ -4,7 +4,6 @@
 ## APIVersion: 100012
 ## Description: Adds several map tools
 
-
 Init.lua
 
 lang/Strings.lua

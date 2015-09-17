@@ -57,8 +57,8 @@ local function GetPlayerInZone(zone)
 		for memberIndex=1, GetNumGuildMembers(guildId), 1 do
 			-- Get user name and char name
 			local displayName, _, _, playerStatus = GetGuildMemberInfo(guildId, memberIndex)
-			-- Only check for online players
-			if playerStatus ~= PLAYER_STATUS_OFFLINE then
+			-- Only check for online players and self
+			if playerStatus ~= PLAYER_STATUS_OFFLINE and displayName ~= GetDisplayName() then
 				local _, _, zoneName, _, alliance = GetGuildMemberCharacterInfo(guildId, memberIndex)
 				-- Check if member is in same alliance and the prefered zone
 				if alliance == playerAlliance
@@ -85,7 +85,7 @@ local function JumpToPlayer(name)
 				JumpToGuildMember(name)
 			else
 				local playerInZone, zoneName, memberSource = GetPlayerInZone(name)
-				if playerInZone ~= nil and playerInZone ~= GetDisplayName() then
+				if playerInZone ~= nil then
 					d("Fasttravel to |cFFFFFF"..playerInZone.."|r from |cFFFFFF"..memberSource.."|r in |cFFFFFF"..zoneName)
 					JumpToPlayer(playerInZone)
 				else
