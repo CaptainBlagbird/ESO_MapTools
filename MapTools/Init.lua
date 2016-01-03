@@ -1,4 +1,4 @@
---[[
+﻿--[[
 
 Map Tools
 by CaptainBlagbird
