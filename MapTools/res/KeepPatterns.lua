@@ -1,4 +1,4 @@
---[[
+﻿--[[
 
 Map Tools
 by CaptainBlagbird
@@ -6,7 +6,7 @@ https://github.com/CaptainBlagbird
 
 --]]
 
-MapTools.keepPatterns = {
+MapTools.KeepPatterns = {
 	-- Nikel Outpost
 	["Nic?kel"] = 132,
 	-- Sejanus Outpost
@@ -22,7 +22,7 @@ MapTools.keepPatterns = {
 	-- Fort Ash
 	["Ash"] = 006,
 	-- Fort Aleswell
-	["Aleswel?l"] = 007,
+	["Alesw"] = 007,
 	-- Fort Dragonclaw
 	["Dragon"] = 008,
 	-- Chalman Keep
@@ -30,7 +30,7 @@ MapTools.keepPatterns = {
 	-- Arrius Keep
 	["Ar?rius"] = 010,
 	-- Kingscrest Keep
-	["King"] = 011,
+	["Kings"] = 011,
 	-- Farragut Keep
 	["Far?ra"] = 012,
 	-- Blue Road Keep
@@ -40,6 +40,7 @@ MapTools.keepPatterns = {
 	["Drake"] = 014,
 	-- Castle Alessia
 	["Ales?sia"] = 015,
+	["Aless"] = 015,
 	-- Castle Faregyl
 	["Fare"] = 016,
 	-- Castle Roebeck
@@ -49,6 +50,7 @@ MapTools.keepPatterns = {
 	-- Castle Black Boot
 	["Black Boot"] = 019,
 	["CBB"] = 019,
+	["BB"] = 019,
 	-- Castle Bloodmayne
 	["Blood"] = 020,
 }

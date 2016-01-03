@@ -1,4 +1,4 @@
---[[
+﻿--[[
 
 Map Tools
 by CaptainBlagbird
@@ -41,7 +41,7 @@ end
 local function FindKeep(text)
 	-- Check the text for all the keywords (pattern)
 	text = string.lower(text)
-	for pattern, keepId in pairs(MapTools.keepPatterns) do
+	for pattern, keepId in pairs(MapTools.KeepPatterns) do
 		if string.match(text, "%?") == nil then
 			pattern = string.lower(pattern.."[a-z]*")
 			local found_match = string.match(text, pattern)
