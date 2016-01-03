@@ -26,15 +26,17 @@ local function isMapPointSet(x,y)
 	end
 end
 
--- Function to get the correct battleground context
-local function GetBattlegroundContext()
-	local bgquery = BGQUERY_UNKNOWN 
-	if GetCurrentCampaignId() == GetAssignedCampaignId() then
-		bgquery = BGQUERY_ASSIGNED_CAMPAIGN
-	else
-		bgquery = BGQUERY_LOCAL 
+-- Get the battleground context that matches the displayed AvA map
+local function GetDisplayedBattlegroundContext()
+	local bgQuery = BGQUERY_UNKNOWN
+	if IsPlayerInAvAWorld() then
+		bgQuery = BGQUERY_LOCAL
+	-- elseif false then  -- TODO: Detect map displaying white keeps
+		-- bgQuery = BGQUERY_UNKNOWN
+	elseif GetAssignedCampaignId() ~= NONE then
+		bgQuery = BGQUERY_ASSIGNED_CAMPAIGN
 	end
-	return bgquery
+	return bgQuery
 end
 
 -- Function that tries to find a keep mentioned in text
@@ -68,7 +70,7 @@ local function OnChatMessage(eventCode, channel, fromName, text, isCustomerServi
 	local keepId, found_match = FindKeep(text)
 	if keepId ~= nil then
 		-- Get keep info and add waypoint on keep location
-		local pinType, x, y = GetKeepPinInfo(keepId, GetBattlegroundContext())
+		local pinType, x, y = GetKeepPinInfo(keepId, GetDisplayedBattlegroundContext())
 		PingMap(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, x, y)
 		-- Check if waypoint was set
 		if isMapPointSet(GetMapPlayerWaypoint()) then
@@ -92,7 +94,7 @@ local function SlashPing(text)
 			ZO_WorldMap_SetMapByIndex(MAP_INDEX_CYRODIIL)
 			zo_callLater(function() ZO_WorldMapZoom_OnMouseWheel(-25) end, 20)
 			-- Get keep info and add waypoint on keep location
-			local pinType, x, y = GetKeepPinInfo(keepId, GetBattlegroundContext())
+			local pinType, x, y = GetKeepPinInfo(keepId, GetDisplayedBattlegroundContext())
 			PingMap(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, x, y)
 			-- Check if waypoint was set
 			if isMapPointSet(GetMapPlayerWaypoint()) then
