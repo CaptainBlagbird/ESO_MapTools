@@ -71,8 +71,9 @@ local function GetPlayerInZone(zone)
 	return nil, nil, nil
 end
 
--- Slash command function for traveling to group leader/member
-local function JumpToPlayer(name)
+-- Slash command function for advanced fast travel
+-- name: name of a friend, guild/group member or zone
+local function JumpTo(name)
 	-- Argument specified --> Jump to player with that name
 	if name ~= "" then
 		if IsFriend(name) then
@@ -87,24 +88,27 @@ local function JumpToPlayer(name)
 				local playerInZone, zoneName, memberSource = GetPlayerInZone(name)
 				if playerInZone ~= nil then
 					d("Fasttravel to |cFFFFFF"..playerInZone.."|r from |cFFFFFF"..memberSource.."|r in |cFFFFFF"..zoneName)
-					JumpToPlayer(playerInZone)
+					JumpTo(playerInZone)
 				else
 					d("Not found")
 				end
 			end
 		end
-		return
-	end
-	
-	-- No argument specified --> Jump to group leader (or to other player if in a group of 2)
-	if GetGroupSize() == 2 and IsUnitGroupLeader("player") then
-		name = GetUnitName("group1")
-		if name == GetUnitName("player") then
-			name = GetUnitName("group2")
+	else
+		local groupSize = GetGroupSize()
+		if groupSize <= 1 then
+			-- Not grouped, get current zone and try to teleport
+			local name = GetZoneNameByIndex(GetCurrentMapZoneIndex())
+			JumpTo(name)
+		elseif GetGroupSize() == 2 and IsUnitGroupLeader("player") then
+			name = GetUnitName("group1")
+			if name == GetUnitName("player") then
+				name = GetUnitName("group2")
+			end
+			JumpToGroupMember(name)
+		else  -- Group has at least 2 members and player isn't leader
+			JumpToGroupLeader()
 		end
-		JumpToGroupMember(name)
-	else  -- Group has at least 2 members and player isn't leader
-		JumpToGroupLeader()
 	end
 end
-SLASH_COMMANDS["/tp"] = JumpToPlayer
+SLASH_COMMANDS["/tp"] = JumpTo
