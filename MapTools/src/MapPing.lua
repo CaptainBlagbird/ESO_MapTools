@@ -18,7 +18,7 @@ local function GetZoneAndSubzone()
 	return select(3,(GetMapTileTexture()):lower():find("maps/([%w%-]+/[%w%-]+_[%w%-]+)"))
 end
 
-local function isMapPointSet(x,y)
+local function IsMapPointSet(x,y)
 	if x==0 and y==0 then
 		return false
 	else
@@ -61,7 +61,7 @@ local function OnChatMessage(eventCode, channel, fromName, text, isCustomerServi
 	
 	-- Only continue if the sender is the group leader and no rally point is set
 	if channel == CHAT_CHANNEL_PARTY and fromName == GetRawUnitName(GetGroupLeaderUnitTag()) then
-		if isMapPointSet(GetMapRallyPoint()) then return end
+		if IsMapPointSet(GetMapRallyPoint()) then return end
 	else
 		return
 	end
@@ -73,7 +73,7 @@ local function OnChatMessage(eventCode, channel, fromName, text, isCustomerServi
 		local pinType, x, y = GetKeepPinInfo(keepId, GetDisplayedBattlegroundContext())
 		PingMap(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, x, y)
 		-- Check if waypoint was set
-		if isMapPointSet(GetMapPlayerWaypoint()) then
+		if IsMapPointSet(GetMapPlayerWaypoint()) then
 			d("Map ping: waypoint (auto '"..found_match.."')")
 		end
 	end
@@ -82,7 +82,7 @@ EVENT_MANAGER:RegisterForEvent(MapTools.MapPing.name, EVENT_CHAT_MESSAGE_CHANNEL
 
 local function SlashPing(text)
 	if text == "" then
-		local isWpSet = isMapPointSet(GetMapPlayerWaypoint())
+		local isWpSet = IsMapPointSet(GetMapPlayerWaypoint())
 		RemovePlayerWaypoint()
 		if isWpSet then d("Map ping: Removed") end
 	else
@@ -97,7 +97,7 @@ local function SlashPing(text)
 			local pinType, x, y = GetKeepPinInfo(keepId, GetDisplayedBattlegroundContext())
 			PingMap(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, x, y)
 			-- Check if waypoint was set
-			if isMapPointSet(GetMapPlayerWaypoint()) then
+			if IsMapPointSet(GetMapPlayerWaypoint()) then
 				d("Map ping: waypoint (auto '"..found_match.."')")
 			end
 		end
