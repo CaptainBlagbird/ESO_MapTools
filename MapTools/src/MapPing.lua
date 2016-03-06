@@ -10,9 +10,6 @@ https://github.com/CaptainBlagbird
 MapTools.MapPing = {}
 MapTools.MapPing.name = "MapPing"
 
--- Constatnts
-local MAP_INDEX_CYRODIIL = 14
-
 
 local function GetZoneAndSubzone()
 	return select(3,(GetMapTileTexture()):lower():find("maps/([%w%-]+/[%w%-]+_[%w%-]+)"))
@@ -91,7 +88,7 @@ local function SlashPing(text)
 		if keepId ~= nil then
 			-- Open Cyrodiil map
 			ZO_WorldMap_ShowWorldMap()
-			ZO_WorldMap_SetMapByIndex(MAP_INDEX_CYRODIIL)
+			ZO_WorldMap_SetMapByIndex(GetCyrodiilMapIndex())
 			zo_callLater(function() ZO_WorldMapZoom_OnMouseWheel(-25) end, 20)
 			-- Get keep info and add waypoint on keep location
 			local pinType, x, y = GetKeepPinInfo(keepId, GetDisplayedBattlegroundContext())
