@@ -14,7 +14,7 @@
 			</Action>
 			<Action name="MAPTOOLS_STEP_OUT">
 				<Down>
-					ZO_WorldMap_MouseUp(nil, 2, true)
+					ZO_WorldMap_MouseUp(nil, MOUSE_BUTTON_INDEX_RIGHT, true)
 					ZO_WorldMapZoom_OnMouseWheel(25)
 					ZO_WorldMap_PanToPlayer()
 				</Down>
@@ -23,7 +23,7 @@
 				<Down>
 					ZO_WorldMapZoom_OnMouseWheel(25)
 					ZO_WorldMap_PanToPlayer()
-					ZO_WorldMap_MouseUp(nil, 1, true)
+					ZO_WorldMap_MouseUp(nil, MOUSE_BUTTON_INDEX_LEFT, true)
 				</Down>
 			</Action>
 			<Action name="MAPTOOLS_OPEN_MAP">

@@ -13,6 +13,7 @@ res/KeepPatterns.lua
 src/MapPing.lua
 src/SlashTravel.lua
 src/FindPOI.lua
+src/ZoomLimit.lua
 
 
 
